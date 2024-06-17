@@ -1,0 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX_QUESTIONS 5
+#define MAX_OPTIONS 4
+#define BUFFER_SIZE 100
+
+typedef struct {
+    char question[BUFFER_SIZE];
+    char options[MAX_OPTIONS][BUFFER_SIZE];
+    int correctAnswer;
+} Question;
+
+void initializeQuestions(Question questions[]) {
+    strcpy(questions[0].question, "What is the capital of India?");
+    strcpy(questions[0].options[0], "1. Andhra Pradesh");
+    strcpy(questions[0].options[1], "2. Mumbai");
+    strcpy(questions[0].options[2], "3. New Delhi");
+    strcpy(questions[0].options[3], "4. TamilNadu");
+    questions[0].correctAnswer = 3;
+
+    strcpy(questions[1].question, "Which planet is known as the Red Planet?");
+    strcpy(questions[1].options[0], "1. Earth");
+    strcpy(questions[1].options[1], "2. Mars");
+    strcpy(questions[1].options[2], "3. Jupiter");
+    strcpy(questions[1].options[3], "4. Saturn");
+    questions[1].correctAnswer = 2;
+    
+    strcpy(questions[2].question, "Longest river");
+    strcpy(questions[2].options[0], "1. ganga");
+    strcpy(questions[2].options[1], "2. Nile");
+    strcpy(questions[2].options[2], "3. yamuna");
+    strcpy(questions[2].options[3], "4. penna");
+    questions[2].correctAnswer = 2;
+
+    strcpy(questions[3].question, "What is the largest ocean on Earth?");
+    strcpy(questions[3].options[0], "1. Atlantic Ocean");
+    strcpy(questions[3].options[1], "2. Indian Ocean");
+    strcpy(questions[3].options[2], "3. Arctic Ocean");
+    strcpy(questions[3].options[3], "4. Pacific Ocean");
+    questions[3].correctAnswer = 4;
+
+    strcpy(questions[4].question, "Who wrote 'Romeo and Juliet'?");
+    strcpy(questions[4].options[0], "1. William Shakespeare");
+    strcpy(questions[4].options[1], "2. Charles Dickens");
+    strcpy(questions[4].options[2], "3. Mark Twain");
+    strcpy(questions[4].options[3], "4. Jane Austen");
+    questions[4].correctAnswer = 1;
+}
+
+void presentQuestion(Question question, int questionNumber) {
+    printf("\nQuestion %d: %s\n", questionNumber + 1, question.question);
+    for (int i = 0; i < MAX_OPTIONS; i++) {
+        printf("%s\n", question.options[i]);
+    }
+    printf("Your answer (1-5): ");
+}
+
+int main() {
+    Question questions[MAX_QUESTIONS];
+    initializeQuestions(questions);
+
+    int score = 0;
+    int answer;
+
+    printf("Welcome to the Quiz Game!\n");
+
+    for (int i = 0; i < MAX_QUESTIONS; i++) {
+        presentQuestion(questions[i], i);
+        scanf("%d", &answer);
+
+        if (answer == questions[i].correctAnswer) {
+            printf("Correct!\n");
+            score++;
+        } else {
+            printf("Wrong! The correct answer was: %d\n", questions[i].correctAnswer);
+        }
+    }
+
+    printf("\nQuiz Over! Your final score is: %d out of %d\n", score, MAX_QUESTIONS);
+
+    return 0;
+}
